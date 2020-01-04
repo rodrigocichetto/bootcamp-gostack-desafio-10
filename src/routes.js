@@ -12,6 +12,8 @@ import SignIn from '~/pages/SignIn';
 
 import Checkin from '~/pages/Checkin';
 import HelpOrder from '~/pages/HelpOrder';
+import HelpOrderForm from '~/pages/HelpOrder/Form';
+import HelpOrderShow from '~/pages/HelpOrder/Show';
 
 export default (signedIn = false) =>
   createAppContainer(
@@ -32,6 +34,8 @@ export default (signedIn = false) =>
                 },
               }
             ),
+            HelpOrderForm,
+            HelpOrderShow,
           },
           {
             defaultNavigationOptions: {

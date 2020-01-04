@@ -51,11 +51,37 @@ const Checkin = () => {
     loadCheckins();
   }, [id, page]);
 
+  const updateCheckins = async () => {
+    try {
+      setLoading(true);
+      const response = await api.get(`/students/${id}/checkins`, {
+        params: { page },
+      });
+
+      setCheckins(
+        response.data.checkins.map((checkin, index) => ({
+          ...checkin,
+          number: response.data.total - index * page,
+          createdAt: formatRelative(new Date(checkin.createdAt), new Date(), {
+            locale: pt,
+          }),
+        }))
+      );
+      setLoading(false);
+    } catch (e) {
+      Alert.alert('Falha', 'Houve um erro ao buscar os check-ins');
+    }
+  };
+
   const handleAddCheckin = async () => {
     try {
+      setButtonLoading(true);
       await api.post(`/students/${id}/checkins`);
+      updateCheckins();
     } catch (e) {
       Alert.alert('Falha', 'Houve um erro ao tentar realizar o check-in');
+    } finally {
+      setButtonLoading(false);
     }
   };
 
@@ -84,7 +110,6 @@ Checkin.navigationOptions = {
   tabBarIcon: ({ tintColor }) => (
     <Icon name="location-on" size={20} color={tintColor} />
   ),
-  header: <Image source={logo} />,
 };
 
 export default Checkin;
