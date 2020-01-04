@@ -1,5 +1,10 @@
+import React from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createStackNavigator } from 'react-navigation-stack';
+import { Image } from 'react-native';
+
+import logo from '~/assets/logo-header.png';
 
 import colors from '~/styles/colors';
 
@@ -13,15 +18,24 @@ export default (signedIn = false) =>
     createSwitchNavigator(
       {
         Sign: createSwitchNavigator({ SignIn }),
-        App: createBottomTabNavigator(
+        App: createStackNavigator(
           {
-            Checkin,
-            HelpOrder,
+            App: createBottomTabNavigator(
+              {
+                Checkin,
+                HelpOrder,
+              },
+              {
+                tabBarOptions: {
+                  keyboardHidesTabBar: true,
+                  activeTintColor: colors.primary,
+                },
+              }
+            ),
           },
           {
-            tabBarOptions: {
-              keyboardHidesTabBar: true,
-              activeTintColor: colors.primary,
+            defaultNavigationOptions: {
+              headerTitle: <Image source={logo} />,
             },
           }
         ),

@@ -4,10 +4,10 @@ export default {
   // success: '#42CB59',
   // error: '#DE3B3B',
   // disabled: '#CCCCCC',
-  // activeMenu: '#444444',
-  // signedBackground: '#F5F5F5',
+  bold: '#444444',
+  signedBackground: '#F2F2F2',
   white: '#FFF',
   inputBorder: '#DDDDDD',
   placeholder: '#999999',
-  // text: '#666',
+  text: '#666',
 };
