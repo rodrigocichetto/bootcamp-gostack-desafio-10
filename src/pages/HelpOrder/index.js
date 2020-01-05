@@ -5,6 +5,7 @@ import formatRelative from 'date-fns/formatRelative';
 import { pt } from 'date-fns/locale';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
+import { NavigationEvents } from 'react-navigation';
 
 import api from '~/services/api';
 
@@ -51,6 +52,27 @@ const HelpOrder = ({ navigation }) => {
     loadHelps();
   }, [id, page]);
 
+  const updateHelps = async () => {
+    try {
+      setLoading(true);
+      const response = await api.get(`/students/${id}/help-orders`, {
+        params: { page },
+      });
+
+      setHelps(
+        response.data.help_orders.map(help => ({
+          ...help,
+          createdAt: formatRelative(new Date(help.createdAt), new Date(), {
+            locale: pt,
+          }),
+        }))
+      );
+      setLoading(false);
+    } catch (e) {
+      Alert.alert('Falha', 'Houve um erro ao buscar os pedidos de ajuda');
+    }
+  };
+
   const handleAddHelp = () => navigation.navigate('HelpOrderForm');
 
   const handleShowHelp = help =>
@@ -58,6 +80,7 @@ const HelpOrder = ({ navigation }) => {
 
   return (
     <Container>
+      <NavigationEvents onWillFocus={() => updateHelps()} />
       <Button onPress={handleAddHelp}>Novo pedido de auxílio</Button>
       {loading && <Loader />}
       <List
