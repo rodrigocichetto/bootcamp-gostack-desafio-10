@@ -14,6 +14,7 @@ import Checkin from '~/pages/Checkin';
 import HelpOrder from '~/pages/HelpOrder';
 import HelpOrderForm from '~/pages/HelpOrder/Form';
 import HelpOrderShow from '~/pages/HelpOrder/Show';
+import SignOut from '~/pages/SignOut';
 
 export default (signedIn = false) =>
   createAppContainer(
@@ -26,6 +27,7 @@ export default (signedIn = false) =>
               {
                 Checkin,
                 HelpOrder,
+                SignOut,
               },
               {
                 tabBarOptions: {

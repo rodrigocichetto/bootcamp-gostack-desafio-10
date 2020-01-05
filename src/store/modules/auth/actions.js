@@ -12,6 +12,7 @@ export const signFailure = () => ({
   type: '@auth/SIGN_FAILURE',
 });
 
-export const signOut = () => ({
+export const signOut = navigation => ({
   type: '@auth/SIGN_OUT',
+  navigation,
 });

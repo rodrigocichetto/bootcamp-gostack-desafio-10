@@ -30,8 +30,8 @@ export function* signIn({ payload }) {
   }
 }
 
-export function signOut() {
-  // history.push('/');
+export function signOut({ navigation }) {
+  navigation.navigate('SignIn');
 }
 
 export default all([
